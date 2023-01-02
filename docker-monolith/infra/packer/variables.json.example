@@ -1,0 +1,9 @@
+{
+  "service_account_key_file": "key.json",
+  "folder_id": "folder_id",
+  "source_image_family": "ubuntu-1604-lts",
+  "image_family": "reddit-docker",
+  "use_ipv4_nat": "true",
+  "ssh_username": "ubuntu",
+  "platform_id": "standard-v1",
+}
