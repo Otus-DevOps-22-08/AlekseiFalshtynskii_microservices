@@ -1,6 +1,31 @@
 # AlekseiFalshtynskii_microservices
 AlekseiFalshtynskii microservices repository
 
+### HW13
+Написаны 3 docker файла для развертывания 3 микросервисов на docker хосте\
+В качестве оптимизации инструкций ADD заменена на COPY, сокращено число слоев, убрана установка env и создание рабочего каталога, оставлено сразу WORKDIR\
+Создана bridge-сеть для контейнеров\
+Собраны и запущены в этой сети 3 сервиса + mongodb\
+Для этого пришлось подбирать версию pymongo=4.0.2 и заменить команду insert на insert_one в post_app.py
+```
+pymongo.errors.OperationFailure: Unsupported OP_QUERY command: find. The client driver may require an upgrade
+pymongo.errors.OperationFailure: Unsupported OP_QUERY command: insert. The client driver may require an upgrade
+```
+Контейнеры остановлены и запущены с другими альясами (с постфиксом 2). Проверены, что работают также
+```
+% docker run -d --network=reddit --network-alias=post_db2 --network-alias=comment_db2 mongo:latest
+% docker run -d --network=reddit --network-alias=post2 --env POST_DATABASE_HOST=post_db2 alekseif6/post:1.0
+% docker run -d --network=reddit --network-alias=comment2 --env COMMENT_DATABASE_HOST=comment_db2 alekseif6/comment:1.0
+% docker run -d --network=reddit -p 9292:9292 --env POST_SERVICE_HOST=post2 --env COMMENT_SERVICE_HOST=comment2 alekseif6/ui:1.0
+```
+Создан volume и примонтирован к контейнеру mongo, чтобы сообщения не пропадали при рестарте\
+★ В Dockerfile.1 сконфигурированы образы на основе чистого alpine и установкой минимально необходимо набора пакетов и удаления в конце инсталляции для минимизации объемов образов
+```
+alekseif6/comment   1.0            0ce1c01a78e6   8 minutes ago    40.6MB
+alekseif6/post      1.0            41580e4ad8b2   11 minutes ago   80MB
+alekseif6/ui        1.0            7ccadec7c726   22 minutes ago   43.7MB
+```
+
 ### HW12
 Установлен Docker и docker-machine отдельно - удален в последних версиях\
 Запущены тестовые образы, отработаны теоретические команды\
