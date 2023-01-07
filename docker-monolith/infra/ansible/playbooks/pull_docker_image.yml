@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  vars:
+    container_name: reddit
+    container_image: alekseif6/otus-reddit:1.0
+  tasks:
+    - name: Pull Docker image
+      community.docker.docker_image:
+        name: "{{ container_image }}"
+        source: pull
+
+    - name: Create container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        exposed_ports:
+          - 9292
+        ports:
+          - 80:9292
+        restart_policy: always
+        state: started
