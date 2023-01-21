@@ -5,9 +5,9 @@ variables.json
 .terraform/
 *.hcl
 
-docker-compose.yml
 build_info.txt
 prometheus/
 
 ## python specific
 *.pyc
+.env
