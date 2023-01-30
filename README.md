@@ -1,7 +1,23 @@
 # AlekseiFalshtynskii_microservices
 AlekseiFalshtynskii microservices repository
 
-### HW14
+### HW16
+Запущен дефолтный prometheus\
+Сконфигурирован prometheus.yml для мониторинга сервисов\
+Изучен web ui prometheus\
+Собраны метрики хоста с использованием node экспортера\
+★ Добавлен мониторинг MongoDB с использованием экспортера percona/mongodb_exporter\
+Для этого создан пользователь в бд с нужными доступами\
+```
+docker exec -it {container_id} sh
+mongo
+use admin
+db.createUser({user: "test", pwd: "testing", roles: [{role: "clusterMonitor", db: "admin"}, {role: "read", db: "local"}]})
+```
+★ Добавлен мониторинг сервисов comment, post, ui с помощью prom/blackbox-exporter
+★ Написан Makefile, умеющий собирать, пушить в хаб и стартовать образы
+
+### HW15
 Запущен тестовый контейнер с использованием различных сетевых драйверов (none, host, bridge)\
 Создана bridge-сеть и в ней запущены микросервисы приложения\
 Созданы 2 изолированные сети и в них запущены микросервисы - ui без доступа к бд\
@@ -19,7 +35,7 @@ AlekseiFalshtynskii microservices repository
 ```
 ★ Написан docker-compose.override.yml, который позволяет запускать образы приложения без пересборки и запускать puma в comment и ui в дебаг режиме с двумя воркерами
 
-### HW13
+### HW14
 Написаны 3 docker файла для развертывания 3 микросервисов на docker хосте\
 В качестве оптимизации инструкций ADD заменена на COPY, сокращено число слоев, убрана установка env и создание рабочего каталога, оставлено сразу WORKDIR\
 Создана bridge-сеть для контейнеров\
@@ -44,7 +60,7 @@ alekseif6/post      1.0            41580e4ad8b2   11 minutes ago   80MB
 alekseif6/ui        1.0            7ccadec7c726   22 minutes ago   43.7MB
 ```
 
-### HW12
+### HW13
 Установлен Docker и docker-machine отдельно - удален в последних версиях\
 Запущены тестовые образы, отработаны теоретические команды\
 Создан docker-хост в yandex cloud\
