@@ -1,6 +1,29 @@
 # AlekseiFalshtynskii_microservices
 AlekseiFalshtynskii microservices repository
 
+### HW17
+Обновлен код микросервисов для логирования\
+Создан compose-файл для системы логирования\
+Сконфигурирован образ fluentd\
+Настроен сбор и отправка логов post и ui в fluentd\
+Просмотрены логи в kibana, создан индекс и применены поиски\
+Применен regexp парсинг json-логов в структурированные логи\
+Применены grok-паттерны для преобразования в структурированные логи\
+★ Дополнительно разобран формат сообщений
+```
+message     service=ui | event=request | path=/ | request_id=2e4758ed-6b7e-4ed9-8185-e71dbbbeb16a | remote_addr=79.137.205.34 | method=get | response_status=200
+```
+Применен grok-паттерн
+```
+grok_pattern service=%{WORD:service} \| event=%{WORD:event} \| path=%{URIPATH:path} \| request_id=%{UUID:request_id} \| remote_addr=%{IP:remote_addr} \| method= %{WORD:method} \| response_status=%{NUMBER:response_status}
+```
+Добавлен сервис Zipkin для распределенного трейсинга\
+Подключен к кастомным сетям font_net и back_net\
+Просмотрены трейсы сервисов при отправке сообщений\
+★ Выполнен траблшутинг ui сломанного кода
+Проблема: страницы с постами загружаются дольше 3 секунд\
+В трассировке определен длительный запрос /post/{id}, в коде соответствует методу find_post(id), на 167 строке "тормозящий" вызов - time.sleep(3)
+
 ### HW16
 Запущен дефолтный prometheus\
 Сконфигурирован prometheus.yml для мониторинга сервисов\
