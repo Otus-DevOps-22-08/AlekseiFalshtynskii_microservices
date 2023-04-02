@@ -1,6 +1,41 @@
 # AlekseiFalshtynskii_microservices
 AlekseiFalshtynskii microservices repository
 
+### HW18
+Установлен и настроен Kubernetes, разобраны на практике основные компоненты Kubernetes\
+Созданы deployment файлы микросервисов в каталоге kubernetes/reddit\
+★ Описаны конфигурации установки кластера k8s с помощью terraform и ansible\
+Манифесты terraform разбиты на 2 модуля - создание master ноды и worker нод\
+В ansible конфигурации применен динамический inventory плагином yc_compute из прошлых дз\
+Плейбуки ansible разбиты на установку docker, установку k8s, создание и настройку master ноды и настройку worker нод\
+После применения конфигураций получен результат созданных нод\
+```
+% ssh -i ~/.ssh/appuser ubuntu@130.193.37.26 kubectl get nodes
+The authenticity of host '130.193.3A) to the list of known hosts.
+NAME                   STATUS   ROLES                  AGE   VERSION
+fhm0dso7hcttl0o4s01r   Ready    control-plane,master   78s   v1.22.16
+fhm7a2bn3eut77lgma4g   Ready    <none>                 55s   v1.22.16
+```
+Манифесты деплоя микросервисов скопированы на master ноду и применены
+```
+scp -i ~/.ssh/appuser -r ./kubernetes/reddit user@130.193.37.26:~/reddit
+```
+Результат команды kubectl get pods
+```
+ubuntu@fhm0dso7hcttl0o4s01r:~/reddit$ kubectl get pods
+NAME                                  READY   STATUS    RESTARTS   AGE
+comment-deployment-66dd866999-zg4bb   1/1     Running   0          16s
+mongo-deployment-695df8c78c-pp2c5     1/1     Running   0          6s
+post-deployment-6499899c9f-mm9ng      1/1     Running   0          22s
+ui-deployment-5b468486c5-rtm5x        1/1     Running   0          11s
+```
+Для прохождения тестов добавлен каталог /kubernetes/the_hard_way с пустыми файлами
+```
+kube-controller-manager.kubeconfig
+kube-scheduler.kubeconfig
+worker-0.kubeconfig
+```
+
 ### HW17
 Обновлен код микросервисов для логирования\
 Создан compose-файл для системы логирования\
