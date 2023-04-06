@@ -4,6 +4,7 @@ variables.json
 *.tfvars
 .terraform/
 *.hcl
+join-command
 
 build_info.txt
 
