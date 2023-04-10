@@ -1,6 +1,32 @@
 # AlekseiFalshtynskii_microservices
 AlekseiFalshtynskii microservices repository
 
+### HW19
+Создана новая ВМ для развертывания GitLab\
+Установлен docker, создан compose-файл, запущен контейнер GitLab\
+Пароль для root получен командой внутри ВМ
+```
+sudo docker exec -it gitlab_web_1 grep 'Password:' /etc/gitlab/initial_root_password
+```
+Отключена регистрация в GitLab\
+Создана группа homework, в группе создан проект example\
+Добавлен remote сервер git в локальную конфигурацию\
+В Settings - Access Tokens создан токен для авторизации в remote на локале\
+Описан CI/CD pipeline в файле .gitlab-ci.yml\
+Добавлен и зарегистрирован GitLab Runner для запуска pipeline\
+В проект добавлен код reddit приложения. Добавлены тесты в pipeline, проверены их выполнения\
+Добавлены окружения dev, staging и production\
+Добавлены динамические окружения, проверены их создания для новых веток
+
+★ Автоматизировано развертывание и настройка GitLab CI
+Создание ВМ для GitLab описано в terraform\
+Установка docker и установка и настройка GitLab описаны в ansible playbooks docker.yml и gitlab.yml\
+★ Автоматизировано развертывание GitLab Runner\
+Конфигурация описана в ansible playbook gitlab-runner.yml
+★ Slack более недоступен, поэтому добавлены оповещения в Telegram\
+Создан тестовый чат, туда добавлен Gitlab_bot, его ссылка на Web Hook добавлена в Settings - Webhooks в GitLab\
+![Telegram Notification](https://downloader.disk.yandex.ru/preview/609157a5fb526a128def8db932fa7f7edd22d4699bc6123aa8217558a2f34b12/64335c0b/p7rNy0Hui4UnxOyB2He5Iopah7AN2z_LXrk1jlB8K4OSlqQgSs7chKFONp8uMK1g8gT4zC1KQOKF1bn3vozcWQ%3D%3D?uid=0&filename=Screen%20Shot%202023-04-09%20at%2023.15.41.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)
+
 ### HW18
 Установлен и настроен Kubernetes, разобраны на практике основные компоненты Kubernetes\
 Созданы deployment файлы микросервисов в каталоге kubernetes/reddit\
