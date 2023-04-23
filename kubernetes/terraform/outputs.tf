@@ -1,7 +1,3 @@
-output "external_ip_address_master" {
-  value = module.master.external_ip_address_master
-}
-
-output "external_ip_address_nodes" {
-  value = module.nodes.external_ip_address_nodes
+output "k8s_external_v4_endpoint" {
+  value = yandex_kubernetes_cluster.k8s.master.0.external_v4_endpoint
 }
