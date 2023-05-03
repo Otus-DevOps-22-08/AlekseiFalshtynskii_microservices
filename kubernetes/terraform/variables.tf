@@ -23,3 +23,14 @@ variable "subnet_id" {
 variable "service_account_key_file" {
   description = "key.json"
 }
+variable "k8s_network_id" {
+  description = "k8s network id"
+}
+variable "k8s_version" {
+  description = "k8s version id"
+  default     = 1.23
+}
+variable "service_account_id" {
+  description = "Service account id"
+}
+
